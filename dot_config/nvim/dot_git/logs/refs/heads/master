@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 272c7610b00b1ba29549ab6deef1477fbfb6c207 Nora Hays <nora@luggle.com> 1776214752 -0700	clone: from https://github.com/bnhays/kickstart.nvim
+272c7610b00b1ba29549ab6deef1477fbfb6c207 7e2db4f73f90f04db0a60942ace9c405ec1f2425 Nora Hays <nora@luggle.com> 1776226104 -0700	commit: spun out files
+7e2db4f73f90f04db0a60942ace9c405ec1f2425 a5ecfb3ee71b24a9bfc4544d39855925f40c9a7f Nora Hays <nora@luggle.com> 1776226148 -0700	commit: fixed commit
+a5ecfb3ee71b24a9bfc4544d39855925f40c9a7f f3cc7902365f7245c53cdec0895cade4395573a5 Nora Hays <nora@luggle.com> 1776226406 -0700	commit: fixed readme
+f3cc7902365f7245c53cdec0895cade4395573a5 012e64654732af07b3ec4ec88a5f094a73ee62e0 Nora Hays <nora@luggle.com> 1776226598 -0700	commit: Remove folder
