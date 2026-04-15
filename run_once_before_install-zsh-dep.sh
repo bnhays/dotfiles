@@ -90,12 +90,14 @@ install_tree_sitter_linux() {
   mkdir -p "$HOME/.local/opt/tree-sitter-cli"
   unzip -q "$TMPDIR/tree-sitter.zip" -d "$HOME/.local/opt/tree-sitter-cli"
 
-  if [ ! -x "$HOME/.local/opt/tree-sitter-cli/tree-sitter" ]; then
+  TS_BIN="$(find "$HOME/.local/opt/tree-sitter-cli" -type f -name 'tree-sitter*' -perm -u+x | head -n 1)"
+  if [ -z "$TS_BIN" ]; then
     echo "Failed to install tree-sitter CLI" >&2
     return 1
   fi
 
-  ln -sf "$HOME/.local/opt/tree-sitter-cli/tree-sitter" "$HOME/.local/bin/tree-sitter"
+  chmod +x "$TS_BIN"
+  ln -sf "$TS_BIN" "$HOME/.local/bin/tree-sitter"
 }
 
 set_default_shell() {
