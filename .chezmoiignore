@@ -1,0 +1,17 @@
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+
+**/Thumbs.db
+**/
+```ehthumbs.db
+
+**/*~
+**/#*#
+**/.TemporaryItems
+
+**/node_modules
+**/package-lock.json
+**/pnpm-lock.yaml
+**/yarn.lock
+
