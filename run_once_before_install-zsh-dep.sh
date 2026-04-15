@@ -11,7 +11,8 @@ install_debian() {
 
 install_macos() {
   if command -v brew >/dev/null 2>&1; then
-    brew install zsh git curl
+    brew install zsh git curl neovim
+    brew upgrade neovim || true
   fi
 }
 
@@ -30,41 +31,20 @@ install_powerlevel10k() {
   fi
 }
 
-set_default_shell() {
-  if command -v zsh >/dev/null 2>&1; then
-    ZSH_PATH="$(command -v zsh)"
-    CURRENT_SHELL="${SHELL:-}"
-    if [ "$CURRENT_SHELL" != "$ZSH_PATH" ]; then
-      if command -v chsh >/dev/null 2>&1; then
-        chsh -s "$ZSH_PATH" || true
-      fi
-    fi
-  fi
-}
-
-install_neovim() {
+install_neovim_linux() {
   mkdir -p "$HOME/.local/bin" "$HOME/.local/opt"
   TMPDIR="$(mktemp -d)"
   trap 'rm -rf "$TMPDIR"' EXIT
 
-  case "$OS" in
-    Linux)
-      case "$ARCH" in
-        x86_64) NVIM_URL="https://github.com/neovim/neovim-releases/releases/latest/download/nvim-linux-x86_64.tar.gz" ;;
-        aarch64|arm64) NVIM_URL="https://github.com/neovim/neovim-releases/releases/latest/download/nvim-linux-arm64.tar.gz" ;;
-        *) echo "Unsupported Linux architecture: $ARCH" >&2; return 1 ;;
-      esac
+  case "$ARCH" in
+    x86_64)
+      NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
       ;;
-    Darwin)
-      # Detect Apple Silicon even if the shell is running under Rosetta
-      if sysctl -n hw.optional.arm64 2>/dev/null | grep -q '^1$'; then
-        NVIM_URL="https://github.com/neovim/neovim-releases/releases/latest/download/nvim-macos-arm64.tar.gz"
-      else
-        NVIM_URL="https://github.com/neovim/neovim-releases/releases/latest/download/nvim-macos-x86_64.tar.gz"
-      fi
+    aarch64|arm64)
+      NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz"
       ;;
     *)
-      echo "Unsupported OS: $OS" >&2
+      echo "Unsupported Linux architecture: $ARCH" >&2
       return 1
       ;;
   esac
@@ -83,18 +63,34 @@ install_neovim() {
   ln -sf "$HOME/.local/opt/nvim/bin/nvim" "$HOME/.local/bin/nvim"
 }
 
+set_default_shell() {
+  if command -v zsh >/dev/null 2>&1; then
+    ZSH_PATH="$(command -v zsh)"
+    CURRENT_SHELL="${SHELL:-}"
+    if [ "$CURRENT_SHELL" != "$ZSH_PATH" ]; then
+      if command -v chsh >/dev/null 2>&1; then
+        chsh -s "$ZSH_PATH" || true
+      fi
+    fi
+  fi
+}
+
 case "$OS" in
   Linux)
     if command -v apt >/dev/null 2>&1; then
       install_debian
+      install_neovim_linux
     fi
     ;;
   Darwin)
     install_macos
     ;;
+  *)
+    echo "Unsupported OS: $OS" >&2
+    exit 1
+    ;;
 esac
 
 install_oh_my_zsh
 install_powerlevel10k
-install_neovim
 set_default_shell
