@@ -6,13 +6,14 @@ ARCH="$(uname -m)"
 
 install_debian() {
   sudo apt update
-  sudo apt install -y zsh git curl tar
+  sudo apt install -y zsh git curl tar unzip build-essential
 }
 
 install_macos() {
   if command -v brew >/dev/null 2>&1; then
-    brew install zsh git curl neovim
+    brew install zsh git curl neovim tree-sitter-cli
     brew upgrade neovim || true
+    brew upgrade tree-sitter-cli || true
   fi
 }
 
@@ -63,6 +64,40 @@ install_neovim_linux() {
   ln -sf "$HOME/.local/opt/nvim/bin/nvim" "$HOME/.local/bin/nvim"
 }
 
+install_tree_sitter_linux() {
+  mkdir -p "$HOME/.local/bin" "$HOME/.local/opt"
+  TMPDIR="$(mktemp -d)"
+  trap 'rm -rf "$TMPDIR"' EXIT
+
+  case "$ARCH" in
+    x86_64)
+      TS_URL="https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-x64.zip"
+      ;;
+    aarch64|arm64)
+      TS_URL="https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-arm64.zip"
+      ;;
+    armv7l|armv6l)
+      TS_URL="https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-cli-linux-arm.zip"
+      ;;
+    *)
+      echo "Unsupported Linux architecture for tree-sitter: $ARCH" >&2
+      return 1
+      ;;
+  esac
+
+  curl -fsSL "$TS_URL" -o "$TMPDIR/tree-sitter.zip"
+  rm -rf "$HOME/.local/opt/tree-sitter-cli"
+  mkdir -p "$HOME/.local/opt/tree-sitter-cli"
+  unzip -q "$TMPDIR/tree-sitter.zip" -d "$HOME/.local/opt/tree-sitter-cli"
+
+  if [ ! -x "$HOME/.local/opt/tree-sitter-cli/tree-sitter" ]; then
+    echo "Failed to install tree-sitter CLI" >&2
+    return 1
+  fi
+
+  ln -sf "$HOME/.local/opt/tree-sitter-cli/tree-sitter" "$HOME/.local/bin/tree-sitter"
+}
+
 set_default_shell() {
   if command -v zsh >/dev/null 2>&1; then
     ZSH_PATH="$(command -v zsh)"
@@ -80,6 +115,7 @@ case "$OS" in
     if command -v apt >/dev/null 2>&1; then
       install_debian
       install_neovim_linux
+      install_tree_sitter_linux
     fi
     ;;
   Darwin)
