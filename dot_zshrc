@@ -14,11 +14,43 @@ export MYKITTYRC="$HOME/.config/kitty/kitty.conf"
 export NVP="$HOME/.config/nvim/lua/plugins/"
 export MYYAZIRC="$HOME/.config/yazi/themes.toml"
 
-# Oh My Zsh
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git macos brew zoxide sudo colored-man-pages command-not-found)
+# User-local binaries
+export PATH="$HOME/.local/bin:$PATH"
 
-source "$ZSH/oh-my-zsh.sh"
+# Platform-specific setup
+case "$OSTYPE" in
+  darwin*)
+    # Homebrew on Apple Silicon or Intel macOS
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
+    ;;
+  linux*)
+    # Nothing special needed here right now
+    ;;
+esac
+
+# Oh My Zsh theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Plugins chosen by OS
+plugins=(git zoxide sudo colored-man-pages command-not-found)
+
+case "$OSTYPE" in
+  darwin*)
+    plugins+=(macos brew)
+    ;;
+  linux*)
+    # Debian/Linux-specific plugin additions can go here later
+    ;;
+esac
+
+# Load Oh My Zsh only if installed
+if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
 
 # Aliases
 alias nv='nvim'
@@ -57,4 +89,6 @@ function y() {
 [[ -f "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 
 # zoxide
-eval "$(zoxide init zsh)"
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
