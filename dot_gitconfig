@@ -1,0 +1,5 @@
+[user]
+	name = Nora Hays
+	email = nora@luggle.com
+[alias]
+	add-com = !git add -A && git commit
