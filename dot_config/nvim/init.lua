@@ -50,9 +50,16 @@ vim.o.splitbelow = true
 --  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
 --   See `:help lua-options`
 --   and `:help lua-guide-options`
-vim.o.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = false -- true if you want spaces
+vim.opt.list = true
+vim.opt.listchars = {
+	tab = "› ",
+	trail = "·",
+	nbsp = "␣",
+}
 -- Preview substitutions live, as you type!
 vim.o.inccommand = "split"
 
