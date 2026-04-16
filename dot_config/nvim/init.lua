@@ -43,7 +43,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
+--  See `:help '/list'`
 --  and `:help 'listchars'`
 --
 --  Notice listchars is set using `vim.opt` instead of `vim.o`.
@@ -54,7 +54,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = false -- true if you want spaces
-vim.opt.list = false
+vim.opt.list = true
 vim.opt.listchars = {
 	tab = "› ",
 	trail = "·",
