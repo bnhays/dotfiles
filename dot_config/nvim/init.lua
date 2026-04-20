@@ -32,9 +32,8 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.o.signcolumn = "yes"
 
--- Set shell to interactive zsh
+-- Set shell to zsh
 vim.o.shell = "/bin/zsh"
-vim.o.shellcmdflag = "-ic"
 
 -- Decrease update time
 vim.o.updatetime = 250
