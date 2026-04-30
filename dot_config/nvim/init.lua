@@ -145,6 +145,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "o", "r" })
+	end,
+})
+
 require("config.lazy")
 require("config.oil")
 require("config.flash")
