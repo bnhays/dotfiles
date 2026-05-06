@@ -58,6 +58,11 @@ alias kittyconfig='chezmoi edit ~/.config/kitty/kitty.conf'
 alias reloadzsh='chezmoi apply && source ~/.zshrc'
 alias unmountix='umount ~/.sshfs/ixdev'
 alias chedit='chezmoi edit'
+alias cat='bat'
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lah --icons --group-directories-first --git'
+alias tree='eza --tree --icons'
+alias ff='fastfetch'
 
 # Opts
 setopt autocd
