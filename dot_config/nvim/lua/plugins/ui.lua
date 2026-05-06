@@ -14,14 +14,13 @@ return {
 		},
 	},
 	{
-		"ember-theme/nvim",
-		name = "ember",
+		"Aejkatappaja/sora",
+		lazy = false,
 		priority = 1000,
-		config = function()
-			require("ember").setup({
-				variant = "ember", -- "ember" | "ember-soft" | "ember-light"
-			})
-			vim.cmd("colorscheme ember")
+		opts = {},
+		config = function(_, opts)
+			require("sora").setup(opts)
+			vim.cmd("colorscheme sora")
 		end,
 	},
 }
