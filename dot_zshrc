@@ -55,7 +55,7 @@ alias nv='nvim'
 alias zshconfig='chezmoi edit ~/.zshrc'
 alias vimconfig='chezmoi edit ~/.config/nvim/init.lua'
 alias kittyconfig='chezmoi edit ~/.config/kitty/kitty.conf'
-alias reloadzsh='chezmoi apply && source ~/.zshrc'
+alias reload='chezmoi apply && source ~/.zshrc'
 alias unmountix='umount ~/.sshfs/ixdev'
 alias chedit='chezmoi edit'
 alias cat='bat'
@@ -66,6 +66,21 @@ alias ff='fastfetch'
 alias cd='z'
 alias j='z'
 alias jj='zi'
+alias f='open .'
+alias myip='curl ifconfig.me'
+alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
+alias wdcp='pwd | pbcopy'
+
+# Git Aliases
+alias ga='git add'
+alias gs='git status'
+alias gaa='git add .'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gu='git pull'
+
+# Brew Aliases
+alias bi='brew install'
 
 # Opts
 setopt autocd
