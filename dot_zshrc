@@ -70,6 +70,7 @@ alias f='open .'
 alias myip='curl ifconfig.me'
 alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
 alias wdcp='pwd | pbcopy'
+alias weather='curl wtti.in'
 
 # Git Aliases
 alias ga='git add'
