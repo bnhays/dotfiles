@@ -92,6 +92,7 @@ alias tree='cbonsai -l'
 alias fish='asciiquarium'
 alias pipes='pipes.sh'
 alias trains='sl && clear'
+alias tetris='bastet'
 
 # Opts
 setopt autocd
