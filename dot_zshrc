@@ -90,6 +90,7 @@ alias bi='brew install'
 # Cosmetic aliases
 alias bon='cbonsai -l'
 alias aqua='asciiquarium'
+alias pipes='pipes.sh'
 
 # Opts
 setopt autocd
