@@ -84,6 +84,10 @@ alias gu='git pull'
 # Brew Aliases
 alias bi='brew install'
 
+# Cosmetic aliases
+alias bon='cbonsai -l'
+alias aqua='asciiquarium'
+
 # Opts
 setopt autocd
 setopt interactivecomments
