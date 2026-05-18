@@ -24,6 +24,8 @@ end)
 
 vim.o.breakindent = true
 
+vim.opt.termguicolors = true
+
 vim.o.undofile = true
 
 vim.o.ignorecase = true
