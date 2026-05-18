@@ -1,0 +1,36 @@
+return {
+  'nosduco/remote-sshfs.nvim',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+  },
+  opts = {
+    connections = {
+      ssh_configs = {
+        vim.fn.expand '$HOME/.ssh/config',
+        '/etc/ssh/ssh_config',
+      },
+      ssh_known_hosts = vim.fn.expand '$HOME/.ssh/known_hosts',
+      sshfs_args = {
+        '-o reconnect',
+        '-o ConnectTimeout=5',
+      },
+    },
+    mounts = {
+      base_dir = vim.fn.expand '$HOME/.sshfs/',
+      unmount_on_exit = true,
+    },
+    handlers = {
+      on_connect = {
+        change_dir = true,
+      },
+      on_disconnect = {
+        clean_mount_folders = false,
+      },
+    },
+  },
+  config = function(_, opts)
+    require('remote-sshfs').setup(opts)
+    require('telescope').load_extension 'remote-sshfs'
+  end,
+}
