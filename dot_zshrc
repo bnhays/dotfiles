@@ -1,5 +1,5 @@
 #fastfetch on startup
-ff
+fastfetch
 
 # Enable Powerlevel10k instant prompt. Keep near the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
